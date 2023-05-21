@@ -1,6 +1,7 @@
 package com.vsu.skibin.coursework.app.repository.dao;
 
 import com.vsu.skibin.coursework.app.api.data.dto.ProfileDTO;
+import com.vsu.skibin.coursework.app.api.data.request.profile.UpdateProfileRequest;
 import com.vsu.skibin.coursework.app.repository.rowMapper.ProfileDTORowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +23,7 @@ public class ProfileDAO {
     private final String GET_PROFILE_ID = "SELECT id FROM profile WHERE login LIKE ?;";
     private final String SUBSCRIBE_QUERY = "INSERT INTO subscribe VALUES (?, ?, NOW());";
     private final String UNSUBSCRIBE_QUERY = "DELETE FROM subscribe WHERE subscriber_id = ? AND author_id = ?;";
+    private final String UPDATE_PROFILE_QUERY = "UPDATE profile SET login=?, email=?, is_author=?, password=? WHERE id=?;";
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -75,5 +77,13 @@ public class ProfileDAO {
 
     public void unsubscribe(Long profileId, Long authorId) {
         jdbcTemplate.update(UNSUBSCRIBE_QUERY, profileId, authorId);
+    }
+
+    public int updateProfile(Long profileId, UpdateProfileRequest request) {
+        return jdbcTemplate.update(UPDATE_PROFILE_QUERY, request.getLogin(),
+                request.getEmail(),
+                request.isAuthor(),
+                request.getPassword(),
+                profileId);
     }
 }

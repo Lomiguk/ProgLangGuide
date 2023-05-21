@@ -1,17 +1,18 @@
 package com.vsu.skibin.coursework.app.service;
 
 import com.vsu.skibin.coursework.app.api.data.dto.ProfileDTO;
+import com.vsu.skibin.coursework.app.api.data.request.profile.UpdateProfileRequest;
 import com.vsu.skibin.coursework.app.exception.profile.SignUpException;
 import com.vsu.skibin.coursework.app.exception.profile.SubscribeOnNonExistentProfile;
 import com.vsu.skibin.coursework.app.exception.profile.WrongOldPasswordException;
 import com.vsu.skibin.coursework.app.exception.profile.WrongProfileId;
 import com.vsu.skibin.coursework.app.repository.dao.ProfileDAO;
+import com.vsu.skibin.coursework.app.tool.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.vsu.skibin.coursework.app.tool.PasswordUtil;
 
 import java.util.Collection;
 
@@ -81,5 +82,9 @@ public class ProfileService {
         } catch (DataIntegrityViolationException e) {
             throw new WrongProfileId("Wrong Unsubscriber id");
         }
+    }
+
+    public int updateProfile(Long profileId, UpdateProfileRequest request) {
+        return profileDAO.updateProfile(profileId, request);
     }
 }
