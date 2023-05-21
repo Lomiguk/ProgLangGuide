@@ -3,6 +3,7 @@ package com.vsu.skibin.coursework.app.controller.article;
 import com.vsu.skibin.coursework.app.api.data.dto.ArticleDTO;
 import com.vsu.skibin.coursework.app.api.data.request.article.AddArticleRequest;
 import com.vsu.skibin.coursework.app.api.data.request.article.PatchArticleRequest;
+import com.vsu.skibin.coursework.app.exception.article.UnknownArticleException;
 import com.vsu.skibin.coursework.app.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,11 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public ArticleDTO getArticle(@PathVariable Long id) {
-        return articleService.getArticle(id);
+        ArticleDTO articleDTO = articleService.getArticle(id);
+        if (articleDTO == null){
+            throw new UnknownArticleException("Unknown article");
+        }
+        return articleDTO;
     }
 
     @PostMapping("/{id}")

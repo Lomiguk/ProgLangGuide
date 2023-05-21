@@ -33,7 +33,11 @@ public class ProfileController {
 
     @GetMapping("/{id}")
     public ProfileDTO profiling(@PathVariable("id") Long profileId) {
-        return profileService.getProfile(profileId);
+        ProfileDTO profileDTO = profileService.getProfile(profileId);
+        if (profileDTO == null){
+            throw new RuntimeException("Unknown profile");
+        }
+        return profileDTO;
     }
 
     @GetMapping("/{id}/subscription")
