@@ -32,9 +32,9 @@ public class ArticleController {
         return articleService.incReadCount(id);
     }
 
-    @PostMapping("/add")
-    public int addArticle(@RequestParam Long id, @RequestBody AddArticleRequest articleRequest) {
-        return articleService.addArticle(id,
+    @PostMapping("/")
+    public int addArticle(@RequestParam Long authorId, @RequestBody AddArticleRequest articleRequest) {
+        return articleService.addArticle(authorId,
                 articleRequest.getTitle(),
                 articleRequest.getDate(),
                 articleRequest.getContent());
