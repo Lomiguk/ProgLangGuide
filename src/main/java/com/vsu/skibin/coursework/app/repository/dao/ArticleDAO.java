@@ -33,11 +33,9 @@ public class ArticleDAO {
     public int updateArticle(Long id, String tittle, String content) {
         return jdbcTemplate.update(UPDATE_ARTICLE_QUERY, tittle, content, id);
     }
-
     public int deleteArticle(Long id) {
         return jdbcTemplate.update(DELETE_ARTICLE_QUERY, id);
     }
-
     public int incReadCount(Long id) {
         return jdbcTemplate.update(INC_COUNT_QUERY, id);
     }
