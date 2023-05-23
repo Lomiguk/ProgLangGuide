@@ -1,7 +1,7 @@
 package com.vsu.skibin.coursework.app.repository.dao;
 
-import com.vsu.skibin.coursework.app.api.data.dto.ArticleDTO;
-import com.vsu.skibin.coursework.app.repository.rowMapper.ArticleDTORowMapper;
+import com.vsu.skibin.coursework.app.entity.Article;
+import com.vsu.skibin.coursework.app.repository.rowMapper.ArticleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Component
 public class ArticleDAO {
-    private final String GET_ARTICLE_QUERY = "SELECT title, author_id, post_date, content, read_count FROM article WHERE id = ?;";
+    private final String GET_ARTICLE_QUERY = "SELECT * FROM article WHERE id = ?;";
     private final String ADD_ARTICLE_QUERY = "INSERT INTO article (author_id, title, post_date, content, read_count) VALUES (?, ?, ?, ?, 0);";
     private final String UPDATE_ARTICLE_QUERY = "UPDATE article SET title = ?, content = ? WHERE id = ?;";
     private final String DELETE_ARTICLE_QUERY = "DELETE FROM article WHERE id = ?;";
@@ -22,8 +22,8 @@ public class ArticleDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public ArticleDTO getArticle(Long id) {
-        return jdbcTemplate.query(GET_ARTICLE_QUERY, new ArticleDTORowMapper(), id).stream().findAny().orElse(null);
+    public Article getArticle(Long id) {
+        return jdbcTemplate.query(GET_ARTICLE_QUERY, new ArticleRowMapper(), id).stream().findAny().orElse(null);
     }
 
     public int addArticle(Long authorId, String title, Timestamp date, String content) {

@@ -1,21 +1,22 @@
 package com.vsu.skibin.coursework.app.repository.rowMapper;
 
-import com.vsu.skibin.coursework.app.api.data.dto.ArticleDTO;
+import com.vsu.skibin.coursework.app.entity.Article;
 import com.vsu.skibin.coursework.app.exception.rowMapper.RowMapException;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ArticleDTORowMapper implements RowMapper<ArticleDTO> {
+public class ArticleRowMapper implements RowMapper<Article> {
 
     @Override
-    public ArticleDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Article mapRow(ResultSet rs, int rowNum) {
         try{
-            return ArticleDTO.builder()
+            return Article.builder()
+                    .id(rs.getLong("id"))
                     .title(rs.getString("title"))
                     .authorId(rs.getLong("author_id"))
-                    .date(rs.getTimestamp("post_date"))
+                    .postDate(rs.getTimestamp("post_date"))
                     .content(rs.getString("content"))
                     .readCount(rs.getInt("read_count"))
                     .build();

@@ -17,7 +17,7 @@ public class ArticleService {
     }
 
     public ArticleDTO getArticle(Long id) {
-        return articleDAO.getArticle(id);
+        return new ArticleDTO(articleDAO.getArticle(id));
     }
 
     public int addArticle(Long authorId, String title, Timestamp date, String content) {

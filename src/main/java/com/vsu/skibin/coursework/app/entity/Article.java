@@ -1,15 +1,17 @@
 package com.vsu.skibin.coursework.app.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
+@Builder
 public class Article {
     private Long id;
     private String title;
     private Long authorId;
-    private Date postDate;
+    private Timestamp postDate;
     private String content;
     private Integer readCount;
 }
