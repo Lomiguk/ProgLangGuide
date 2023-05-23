@@ -16,7 +16,7 @@ public class CommentService {
         this.commentDAO = commentDAO;
     }
     public CommentDTO getComment(Long articleId, Long commentId) {
-        Comment comment= commentDAO.getComment(articleId, commentId);
+        Comment comment = commentDAO.getComment(articleId, commentId);
         return new CommentDTO(comment);
     }
     public int addComment(Long articleId, AddCommentRequest request){

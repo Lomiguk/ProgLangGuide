@@ -2,6 +2,7 @@ package com.vsu.skibin.coursework.app.service;
 
 import com.vsu.skibin.coursework.app.api.data.dto.ProfileDTO;
 import com.vsu.skibin.coursework.app.api.data.request.profile.UpdateProfileRequest;
+import com.vsu.skibin.coursework.app.entity.Profile;
 import com.vsu.skibin.coursework.app.exception.profile.SignUpException;
 import com.vsu.skibin.coursework.app.exception.profile.SubscribeOnNonExistentProfile;
 import com.vsu.skibin.coursework.app.exception.profile.WrongOldPasswordException;
@@ -14,6 +15,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -26,7 +28,7 @@ public class ProfileService {
     }
 
     public ProfileDTO signIn(String login, Long password) {
-        return profileDAO.signIn(login, password);
+        return new ProfileDTO(profileDAO.signIn(login, password));
     }
 
     public void signUp(String login, String email, String password, String passwordRepeat) {
@@ -38,11 +40,16 @@ public class ProfileService {
     }
 
     public Collection<ProfileDTO> getSubscribes(Long id) {
-        return profileDAO.getSubscribes(id);
+        Collection<Profile> profiles = profileDAO.getSubscribes(id);
+        Collection<ProfileDTO> profileDTOs = new ArrayList<>();
+        for (Profile profile: profiles) {
+            profileDTOs.add(new ProfileDTO(profile));
+        }
+        return profileDTOs;
     }
 
     public ProfileDTO getProfile(Long profileId) {
-        return profileDAO.getProfile(profileId);
+        return new ProfileDTO(profileDAO.getProfile(profileId));
     }
 
     @Transactional
