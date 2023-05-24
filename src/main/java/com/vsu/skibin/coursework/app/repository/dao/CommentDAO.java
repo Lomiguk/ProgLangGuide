@@ -7,8 +7,10 @@ import com.vsu.skibin.coursework.app.repository.rowMapper.CommentRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 @Component
+@Repository
 public class CommentDAO {
     private String GET_COMMENT_QUERY = "SELECT * FROM comment WHERE article_id = ? AND id = ?;";
     private String INSERT_COMMENT_QUERY = "INSERT INTO comment (author_id, article_id, content, post_date) VALUES (?, ?, ?, ?)";

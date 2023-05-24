@@ -10,5 +10,5 @@ public class Profile {
     private String email;
     private String login;
     private Long password;
-    private boolean isAuthor;
+    private Boolean isAuthor;
 }

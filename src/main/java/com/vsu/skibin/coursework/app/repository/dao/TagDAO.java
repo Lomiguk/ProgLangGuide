@@ -7,8 +7,10 @@ import com.vsu.skibin.coursework.app.repository.rowMapper.TagRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 @Component
+@Repository
 public class TagDAO {
     private final String GET_TAG_QUERY = "SELECT * FROM tag WHERE id = ?;";
     private final String INSERT_TAG_QUERY = "INSERT INTO tag (title) VALUES (?);";

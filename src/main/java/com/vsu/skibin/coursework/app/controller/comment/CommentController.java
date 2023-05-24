@@ -4,6 +4,7 @@ import com.vsu.skibin.coursework.app.api.data.dto.CommentDTO;
 import com.vsu.skibin.coursework.app.api.data.request.comment.AddCommentRequest;
 import com.vsu.skibin.coursework.app.api.data.request.comment.UpdateCommentRequest;
 import com.vsu.skibin.coursework.app.service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,13 +36,13 @@ public class CommentController {
         return commentService.getComment(articleId, commentId);
     }
     @PostMapping(value = {"","/"})
-    public int addComment(@PathVariable("articleId") Long articleId, @RequestBody AddCommentRequest request){
+    public int addComment(@PathVariable("articleId") Long articleId, @Valid @RequestBody AddCommentRequest request){
         return commentService.addComment(articleId, request);
     }
     @PatchMapping("/{commentId}")
     public int patchComment(@PathVariable("articleId") Long articleId,
                             @PathVariable("commentId") Long commentId,
-                            @RequestBody UpdateCommentRequest request){
+                            @Valid @RequestBody UpdateCommentRequest request){
         return commentService.patchComment(articleId, commentId, request);
     }
     @DeleteMapping("/{commentId}")

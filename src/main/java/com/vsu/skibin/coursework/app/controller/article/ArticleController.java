@@ -5,8 +5,17 @@ import com.vsu.skibin.coursework.app.api.data.request.article.AddArticleRequest;
 import com.vsu.skibin.coursework.app.api.data.request.article.PatchArticleRequest;
 import com.vsu.skibin.coursework.app.exception.article.UnknownArticleException;
 import com.vsu.skibin.coursework.app.service.ArticleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/article")
@@ -33,7 +42,7 @@ public class ArticleController {
     }
 
     @PostMapping("/")
-    public int addArticle(@RequestParam Long authorId, @RequestBody AddArticleRequest articleRequest) {
+    public int addArticle(@RequestParam Long authorId, @Valid @RequestBody AddArticleRequest articleRequest) {
         return articleService.addArticle(authorId,
                 articleRequest.getTitle(),
                 articleRequest.getDate(),
@@ -41,7 +50,7 @@ public class ArticleController {
     }
 
     @PatchMapping("/{id}")
-    public int editArticle(@PathVariable Long id, @RequestBody PatchArticleRequest patchArticle) {
+    public int editArticle(@PathVariable Long id, @Valid @RequestBody PatchArticleRequest patchArticle) {
         return articleService.updateArticle(id, patchArticle.getTittle(), patchArticle.getContent());
     }
 
