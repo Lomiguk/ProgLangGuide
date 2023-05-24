@@ -1,19 +1,16 @@
 package com.vsu.skibin.coursework.app.api.data.request.profile;
 
-import com.vsu.skibin.coursework.app.tool.PasswordUtil;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 public class UpdateProfileRequest {
+    @Size(min = 5, max = 15)
     private String login;
+    @Email
     private String email;
-    private boolean isAuthor;
+    private Boolean isAuthor;
+    @Size(min = 5)
     private Long password;
-
-    public UpdateProfileRequest(String login, String email, boolean is_author, String password) {
-        this.login = login;
-        this.email = email;
-        this.isAuthor = is_author;
-        this.password = PasswordUtil.getHash(password);
-    }
 }

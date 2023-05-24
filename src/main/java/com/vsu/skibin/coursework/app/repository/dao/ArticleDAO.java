@@ -5,10 +5,12 @@ import com.vsu.skibin.coursework.app.repository.rowMapper.ArticleRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 
 @Component
+@Repository
 public class ArticleDAO {
     private final String GET_ARTICLE_QUERY = "SELECT * FROM article WHERE id = ?;";
     private final String ADD_ARTICLE_QUERY = "INSERT INTO article (author_id, title, post_date, content, read_count) VALUES (?, ?, ?, ?, 0);";

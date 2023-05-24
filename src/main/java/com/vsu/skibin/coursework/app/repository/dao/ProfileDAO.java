@@ -6,10 +6,12 @@ import com.vsu.skibin.coursework.app.repository.rowMapper.ProfileRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 
 @Component
+@Repository
 public class ProfileDAO {
     private final String SIGN_IN_QUERY = "SELECT * FROM profile WHERE login LIKE ? AND password = ?;";
     private final String SIGN_UP_QUERY = "INSERT INTO profile (email, login, is_author, password) VALUES (?, ?, false, ?);";
@@ -82,7 +84,7 @@ public class ProfileDAO {
     public int updateProfile(Long profileId, UpdateProfileRequest request) {
         return jdbcTemplate.update(UPDATE_PROFILE_QUERY, request.getLogin(),
                 request.getEmail(),
-                request.isAuthor(),
+                request.getIsAuthor(),
                 request.getPassword(),
                 profileId);
     }

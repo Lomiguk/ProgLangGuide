@@ -11,11 +11,11 @@ import lombok.Data;
 public class ProfileDTO {
     private String email;
     private String login;
-    private boolean isAuthor;
+    private Boolean isAuthor;
 
     public ProfileDTO(Profile profile) {
         this.email = profile.getEmail();
         this.login = profile.getLogin();
-        this.isAuthor = profile.isAuthor();
+        this.isAuthor = profile.getIsAuthor();
     }
 }
